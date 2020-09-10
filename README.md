@@ -9,5 +9,13 @@ And the following options can be set in an easy way
 - target platform
 - skip string normalization
 
-The configuration (settings and selected files/folders)
+Configuration (settings and selected files/folders) can be saved to a toml file, to
+be used later.
 
+The program loads the file simply_black.py upon startup, if available.
+
+It is also possible to start simply_black with a given configuration file.
+
+Installation
+------------
+${
