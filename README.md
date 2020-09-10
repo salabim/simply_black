@@ -4,7 +4,7 @@ This package provides a GUI wrapper around the popular Black Python formatter.
 So instead of a command line, the user can choose which files and/or folders
 have to be formatted.
 
-![image1](images/image1.png)
+![image1](images/Image1.png)
 
 And the following options can be set in an easy way
 - linelength
