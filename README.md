@@ -20,12 +20,20 @@ It is also possible to start simply_black with a given configuration file.
 
 Installation
 ------------
-The file simply_black.py can be downloaded from GitHub ()
+The file simply_black.py can be downloaded from GitHub. This file requires MySimpleGUI and PySimpleGUI to be isntalled (both are available on GitHub or PyPI).
+
+Alternatively, there's a file simply_black_embedded, which has the packages MySimpleGUI and PySimpleGUI embedded.
 
 Requirements
 ------------
+Python >= 3.6
+
+For simply_black.py:
 - MySimpleGUI, available from GitHub or PyPI
 - PySimpleGUI, available from Github or PYPI
+
+For simply_black_embedded.py:
+- None
 
 Usage
 -----
