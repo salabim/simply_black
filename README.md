@@ -21,7 +21,7 @@ Installation
 ------------
 The file `simply_black.py` can be downloaded from GitHub. This file requires MySimpleGUI and PySimpleGUI to be installed (both are available on GitHub or PyPI).
 
-Alternatively, there's a `file simply_black_embedded,py`, which has the packages MySimpleGUI and PySimpleGUI embedded.
+Alternatively, there's a `file simply_black_embedded.py`, which has the packages MySimpleGUI and PySimpleGUI embedded.
 
 Why MySimpleGUI?
 ----------------
