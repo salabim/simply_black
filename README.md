@@ -24,6 +24,17 @@ The file simply_black.py can be downloaded from GitHub. This file requires MySim
 
 Alternatively, there's a file simply_black_embedded, which has the packages MySimpleGUI and PySimpleGUI embedded.
 
+Why MySimpleGUI?
+----------------
+This application could be realized in PySimpleGUI as well, but I think this is a nice application to demonstrate some
+of the features of MySimpleGUI, particularly attribute notation, easy setting functionality and ansi colour support.
+On top of that MySimpleGUI features better exception handling, that can help debugging.
+
+More information on MySimpleGUI can be found here.
+
+More information on PySimpleGUI can be found here.
+
+
 Requirements
 ------------
 Python >= 3.6
@@ -35,15 +46,18 @@ For simply_black.py:
 For simply_black_embedded.py:
 - None
 
-Usage
------
-The program simply_black.py has one optional parameter, the config json file.
+Startup
+-------
+The program simply_black.py has one optional parameter, the config json file to be loaded at startup.
 If no parameter is given, the program tries to open the file *simply_black.json* from the current directory.
 If the json file is not found, the selection will be empty, and the follwong defaults will apply:
 
 - line length (-l): 88
 - target platform (-t): auto
 - skip string normalization (-S): off
+
+Usage 
+-----
 
 ![image2](images/Image2.png)
 
