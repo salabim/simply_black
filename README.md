@@ -26,7 +26,7 @@ Alternatively, there's a `file simply_black_embedded.py`, which has the packages
 Why MySimpleGUI?
 ----------------
 This application could be realized in PySimpleGUI as well, but I think this is a nice application to demonstrate some
-of the features of MySimpleGUI, particularly attribute notation, easy setting functionality and ansi colour support.
+of the features of MySimpleGUI, particularly attribute notation, easy global setting functionality (including context manager) and ansi colour support.
 On top of that MySimpleGUI features better exception handling, that can help to debug.
 
 More information on MySimpleGUI can be found at https://github.com/salabim/MySimpleGUI.
