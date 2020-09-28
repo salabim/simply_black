@@ -29,9 +29,9 @@ This application could be realized in PySimpleGUI as well, but I think this is a
 of the features of MySimpleGUI, particularly attribute notation, easy setting functionality and ansi colour support.
 On top of that MySimpleGUI features better exception handling, that can help debugging.
 
-More information on MySimpleGUI can be found here https://github.com/salabim/MySimpleGUI.
+More information on MySimpleGUI can be found at https://github.com/salabim/MySimpleGUI.
 
-More information on PySimpleGUI can be found here https://github.com/PySimpleGUI/PySimpleGUI.
+More information on PySimpleGUI can be found at https://github.com/PySimpleGUI/PySimpleGUI.
 
 
 Requirements
