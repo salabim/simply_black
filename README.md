@@ -36,6 +36,8 @@ More information on PySimpleGUI can be found at https://github.com/PySimpleGUI/P
 
 Requirements
 ------------
+Operating system: Windows, Linux or MacOS.
+
 Python >= 3.6
 
 For simply_black.py:
