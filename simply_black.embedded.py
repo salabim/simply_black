@@ -104,7 +104,7 @@ def main():
 
     blackbin = "N/A"
     if sys.platform == "linux":
-        black_bin = "/usr/local/bin/black"
+        black_bin = "/usr/bin/black"
     elif sys.platform == "darwin":
         black_bin = "/usr/local/black"
     else:

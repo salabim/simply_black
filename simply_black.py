@@ -7,7 +7,7 @@ from pathlib import Path
 import json
 import collections
 
-version = "1.0.0"
+version = "1.0.1"
 
 
 def blacken(blackbin, selection, linelength, target, skip_string_normalization):
@@ -22,7 +22,12 @@ def blacken(blackbin, selection, linelength, target, skip_string_normalization):
         skip_string_normalization_param = ["-S"]
     else:
         skip_string_normalization_param = []
-    sp = subprocess.Popen([blackbin, *linelength_param, *target_param, *skip_string_normalization_param, *selection], shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    sp = subprocess.Popen(
+        [blackbin, *linelength_param, *target_param, *skip_string_normalization_param, *selection],
+        shell=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
     out, err = sp.communicate()
     return "".join(c for c in err.decode("utf-8") if ord(c) < 255)
 
@@ -60,9 +65,9 @@ def main():
 
     blackbin = "N/A"
     if sys.platform == "linux":
-        black_bin = "/usr/local/bin/black"
+        black_bin = "/usr/bin/black"
     elif sys.platform == "darwin":
-        black_bin = "/usr/local/black" 
+        black_bin = "/usr/local/black"
     else:
         for path in sys.path:
             if (Path(path) / "black.exe").is_file():
@@ -72,7 +77,12 @@ def main():
                 blackbin = str(Path(path) / "Scripts" / "black.exe")
                 break
     if blackbin == "N/A":
-        sg.popup("black.exe not found. Make sure it is installed correctly.", background_color="red", text_color="white", title="Error")
+        sg.popup(
+            "black.exe not found. Make sure it is installed correctly.",
+            background_color="red",
+            text_color="white",
+            title="Error",
+        )
         return
 
     json_file = "simply_black"
@@ -93,17 +103,54 @@ def main():
         [
             [
                 sg.FolderBrowse("Add folder", enable_events=True, key="add_folder", target=None, size=(12, 1)),
-                sg.FilesBrowse("Add files", enable_events=True, key="add_files", file_types=((".py files", "*.py"),),target="add_files", size=(12, 1)),
+                sg.FilesBrowse(
+                    "Add files",
+                    enable_events=True,
+                    key="add_files",
+                    file_types=((".py files", "*.py"),),
+                    target="add_files",
+                    size=(12, 1),
+                ),
                 sg.Button("Clear selection", key="clear_selection", size=(12, 1)),
-                sg.FileBrowse("Load config", key="load_config", size=(12, 1), target=None, initial_folder=".", file_types=((".json files", "*.json"),), enable_events=True),
-                sg.SaveAs("Save config", key="save_config", target=None, initial_folder=".", file_types=((".json files", "*.json"),), size=(12, 1), enable_events=True),
+                sg.FileBrowse(
+                    "Load config",
+                    key="load_config",
+                    size=(12, 1),
+                    target=None,
+                    initial_folder=".",
+                    file_types=((".json files", "*.json"),),
+                    enable_events=True,
+                ),
+                sg.SaveAs(
+                    "Save config",
+                    key="save_config",
+                    target=None,
+                    initial_folder=".",
+                    file_types=((".json files", "*.json"),),
+                    size=(12, 1),
+                    enable_events=True,
+                ),
                 sg.Text("simply_black", font=("Courier", 20), size=(17, 1), justification="right"),
             ],
             [sg.Text("Selection")],
             [sg.Multiline(size=(120, 10), autoscroll=True, key="files")],
-            [sg.Text("Line length (-l)", size=(25, 1)), sg.Slider(range=(80, 255), orientation="h", size=(71, 20), default_value=88, key="linelength")],
-            [sg.Text("Target version (-t)", size=(25, 1)), sg.Combo(["auto", "py27", "py33", "py34", "py35", "py36", "py37", "py38"], size=(4, 1), default_value="auto", key="target")],
-            [sg.Text("Skip string normalization (-S)", size=(25, 1)), sg.Checkbox("", key="skip_string_normalization", default=False)],
+            [
+                sg.Text("Line length (-l)", size=(25, 1)),
+                sg.Slider(range=(80, 255), orientation="h", size=(71, 20), default_value=88, key="linelength"),
+            ],
+            [
+                sg.Text("Target version (-t)", size=(25, 1)),
+                sg.Combo(
+                    ["auto", "py27", "py33", "py34", "py35", "py36", "py37", "py38"],
+                    size=(4, 1),
+                    default_value="auto",
+                    key="target",
+                ),
+            ],
+            [
+                sg.Text("Skip string normalization (-S)", size=(25, 1)),
+                sg.Checkbox("", key="skip_string_normalization", default=False),
+            ],
             [sg.Text("Output")],
             [sg.Multiline(size=(120, 10), autoscroll=True, auto_refresh=True, key="out")],
             [sg.Button("Blacken", size=(12, 1), key="blacken"), sg.Cancel("Exit", size=(12, 1), key="exit")],
@@ -116,7 +163,12 @@ def main():
     else:
         if not optional:
 
-            sg.popup(f"File {json_file} not found. Using default settings", background_color="red", text_color="white", title="Error")
+            sg.popup(
+                f"File {json_file} not found. Using default settings",
+                background_color="red",
+                text_color="white",
+                title="Error",
+            )
 
     while True:
         event, values = window.read()
@@ -138,7 +190,13 @@ def main():
 
         if event == "blacken":
             window.out.update("Working ...\n")
-            capture = blacken(blackbin=blackbin, selection=selection, linelength=int(values.linelength), target=values.target, skip_string_normalization=values.skip_string_normalization)
+            capture = blacken(
+                blackbin=blackbin,
+                selection=selection,
+                linelength=int(values.linelength),
+                target=values.target,
+                skip_string_normalization=values.skip_string_normalization,
+            )
             window.out.update(capture)
             sg.popup("Done", background_color="grey", text_color="white", title="Ok")
 
@@ -152,13 +210,20 @@ def main():
             if file:
                 if Path(file).suffix == "":
                     file += ".json"
-                settings = {"linelength": int(values.linelength), "target": values.target, "skip_string_normalization": values.skip_string_normalization, "selection": selection}
+                settings = {
+                    "linelength": int(values.linelength),
+                    "target": values.target,
+                    "skip_string_normalization": values.skip_string_normalization,
+                    "selection": selection,
+                }
                 try:
                     with open(file, "w") as f:
                         json.dump(settings, f)
                         sg.popup(f"Config saved as {file}", background_color="grey", text_color="white", title="Ok")
                 except Exception as e:
-                    sg.popup(f"Error saving file {file}\n{e}", background_color="red", text_color="white", title="Error")
+                    sg.popup(
+                        f"Error saving file {file}\n{e}", background_color="red", text_color="white", title="Error"
+                    )
 
     window.close()
 
