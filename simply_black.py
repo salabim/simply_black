@@ -10,7 +10,7 @@ import collections
 version = "1.0.0"
 
 
-def blacken(blackexe, selection, linelength, target, skip_string_normalization):
+def blacken(blackbin, selection, linelength, target, skip_string_normalization):
 
     selection = [file for file in selection if Path(file).is_dir() or Path(file).is_file()]
     linelength_param = ["-l", str(linelength)]
@@ -22,7 +22,7 @@ def blacken(blackexe, selection, linelength, target, skip_string_normalization):
         skip_string_normalization_param = ["-S"]
     else:
         skip_string_normalization_param = []
-    sp = subprocess.Popen([blackexe, *linelength_param, *target_param, *skip_string_normalization_param, *selection], shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    sp = subprocess.Popen([blackbin, *linelength_param, *target_param, *skip_string_normalization_param, *selection], shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out, err = sp.communicate()
     return "".join(c for c in err.decode("utf-8") if ord(c) < 255)
 
@@ -58,15 +58,20 @@ def main():
     sg.message_box_line_width(120)
     selection = []
 
-    blackexe = "N/A"
-    for path in sys.path:
-        if (Path(path) / "black.exe").is_file():
-            blackexe = str(Path(path) / "black.exe")
-            break
-        if (Path(path) / "Scripts" / "black.exe").is_file():
-            blackexe = str(Path(path) / "Scripts" / "black.exe")
-            break
-    if blackexe == "N/A":
+    blackbin = "N/A"
+    if sys.platform == "linux":
+        black_bin = "/usr/local/bin/black"
+    elif sys.platform == "darwin":
+        black_bin = "/usr/local/black" 
+    else:
+        for path in sys.path:
+            if (Path(path) / "black.exe").is_file():
+                blackbin = str(Path(path) / "black.exe")
+                break
+            if (Path(path) / "Scripts" / "black.exe").is_file():
+                blackbin = str(Path(path) / "Scripts" / "black.exe")
+                break
+    if blackbin == "N/A":
         sg.popup("black.exe not found. Make sure it is installed correctly.", background_color="red", text_color="white", title="Error")
         return
 
@@ -133,7 +138,7 @@ def main():
 
         if event == "blacken":
             window.out.update("Working ...\n")
-            capture = blacken(blackexe=blackexe, selection=selection, linelength=int(values.linelength), target=values.target, skip_string_normalization=values.skip_string_normalization)
+            capture = blacken(blackbin=blackbin, selection=selection, linelength=int(values.linelength), target=values.target, skip_string_normalization=values.skip_string_normalization)
             window.out.update(capture)
             sg.popup("Done", background_color="grey", text_color="white", title="Ok")
 

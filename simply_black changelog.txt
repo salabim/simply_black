@@ -1,0 +1,10 @@
+Changelog simply_black
+======================
+
+vs 1.0.1  2020-10-06
+--------------------
+Now supports Linux and MacOS (not tested)
+
+vs 1.0.0  2020-09-21
+--------------------
+Initial version
