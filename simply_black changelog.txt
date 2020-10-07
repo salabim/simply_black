@@ -1,6 +1,11 @@
 Changelog simply_black
 ======================
 
+
+vs 1.0.2  2020-10-07
+--------------------
+Changes to run under Linux (tested). Should run under MacOS as well (not tested).
+
 vs 1.0.1  2020-10-06
 --------------------
 Now supports Linux and MacOS (not tested)
